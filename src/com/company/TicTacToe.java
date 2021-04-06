@@ -1,17 +1,13 @@
 package com.company;
 
 import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class TicTacToe extends GameBoard {
 
     @Override
     public void displayGameBoard(int[] coordinates) {
-
-        if (coordinates == null) {
-            // do something...
-        }
-
         
         // initializing gameboard borders
         char topBorder[] = new char[17];
@@ -36,19 +32,33 @@ public class TicTacToe extends GameBoard {
         thirdRow[0] = '|'; 
         thirdRow[16] = '|';
 
+        // determining which row we need to edit
+        if (coordinates != null) {
+            switch (coordinates[0]) {
+                case 1:
+                    firstRow = placeGamePiece(coordinates[1], firstRow);
+                    break;
+                case 2:
+                    secondRow = placeGamePiece(coordinates[1], firstRow);
+                    break;
+                case 3:
+                    thirdRow = placeGamePiece(coordinates[1], firstRow);
+                    break;
+            }
+        }
+  
         System.out.println(topBorder);
         System.out.println(firstRow);
         System.out.println(secondRow);;
         System.out.println(thirdRow);;
         System.out.println(bottomBorder);
-
     }
 
     @Override
     public void playGame() {
         int[] coordinates;
         coordinates = null;
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = Main.scanner;
 
         Boolean gameState = true;
         System.out.println("Welcome to Tic-Tac-Toe!");
@@ -57,26 +67,25 @@ public class TicTacToe extends GameBoard {
         
             // turn start
             displayGameBoard(coordinates);
-            System.out.print("Enter the coordinates: ");
+            System.out.println("Enter the coordinates: ");
             
             // reading input from user
             String movePlacement  = scanner.nextLine();
             String[] movePlacementArray = movePlacement.split(" ");
 
             // converting string array to integer array
-            int[] coordinates = new int[movePlacementArray.length];
+            coordinates = new int[movePlacementArray.length];
             for (int index = 0; index < coordinates.length; index++) {
                 coordinates[index] = Integer.parseInt(movePlacementArray[index]);
             }
 
-
-
-            
+            displayGameBoard(coordinates);
 
         }
-
-        scanner.close();
-
     }
 
+    public char[] placeGamePiece(int coordinate, char[] placementRow) {
+        placementRow[coordinate] = 'X';
+        return placementRow;
+    }
 }
