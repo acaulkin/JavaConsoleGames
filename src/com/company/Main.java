@@ -6,12 +6,14 @@ public class Main {
 
     public static void main(String[] args) {
         int gameSelected  = decideGame();
+        int[] coordinates;
 
         GameBoard firstGame;
         switch (gameSelected) {
             case 1:
                 firstGame = new TicTacToe();
-                firstGame.displayGameBoard();
+                firstGame.displayGameBoard(coordinates = null);
+                firstGame.playGame();
         }
     }
 
