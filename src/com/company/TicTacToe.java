@@ -5,33 +5,17 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToe extends GameBoard {
+    // initializing gameboard borders
+    char topBorder[] = new char[17];
+    char bottomBorder[] = topBorder;
+
+    char firstRow[] = new char[17];
+    char secondRow[] = new char[17];
+    char thirdRow[] = new char[17];
 
     @Override
     public void displayGameBoard(int[] coordinates) {
         
-        // initializing gameboard borders
-        char topBorder[] = new char[17];
-        char bottomBorder[] = topBorder;
-        // filling the top and bottom borders
-        Arrays.fill(topBorder, '-');
-
-        char firstRow[] = new char[17];
-        char secondRow[] = new char[17];
-        char thirdRow[] = new char[17];
-
-        // filling the inside rows
-        Arrays.fill(firstRow, ' ');
-        firstRow[0] = '|'; 
-        firstRow[16] = '|';
-
-        Arrays.fill(secondRow, ' ');
-        secondRow[0] = '|'; 
-        secondRow[16] = '|';
-
-        Arrays.fill(thirdRow, ' ');
-        thirdRow[0] = '|'; 
-        thirdRow[16] = '|';
-
         // determining which row we need to edit
         if (coordinates != null) {
             switch (coordinates[0]) {
@@ -39,10 +23,10 @@ public class TicTacToe extends GameBoard {
                     firstRow = placeGamePiece(coordinates[1], firstRow);
                     break;
                 case 2:
-                    secondRow = placeGamePiece(coordinates[1], firstRow);
+                    secondRow = placeGamePiece(coordinates[1], secondRow);
                     break;
                 case 3:
-                    thirdRow = placeGamePiece(coordinates[1], firstRow);
+                    thirdRow = placeGamePiece(coordinates[1], thirdRow);
                     break;
             }
         }
@@ -54,6 +38,41 @@ public class TicTacToe extends GameBoard {
         System.out.println(bottomBorder);
     }
 
+
+    public char[] placeGamePiece(int coordinate, char[] placementRow) {
+
+        switch (coordinate) {
+            case 1:
+                placementRow[1] = 'X';
+                break;
+            case 2:
+                placementRow[8] = 'X';
+                break;
+            
+            case 3:
+            placementRow[15] = 'X';
+            break;
+        }
+
+        return placementRow;
+    }
+
+    public void initializeGameBoard() {
+        // filling the top and bottom borders
+        Arrays.fill(topBorder, '-');
+
+        // filling the inside rows
+        Arrays.fill(firstRow, ' ');
+        firstRow[0] = '|'; 
+        firstRow[16] = '|';
+        Arrays.fill(secondRow, ' ');
+        secondRow[0] = '|'; 
+        secondRow[16] = '|';
+        Arrays.fill(thirdRow, ' ');
+        thirdRow[0] = '|'; 
+        thirdRow[16] = '|';
+    }
+
     @Override
     public void playGame() {
         int[] coordinates;
@@ -62,6 +81,7 @@ public class TicTacToe extends GameBoard {
 
         Boolean gameState = true;
         System.out.println("Welcome to Tic-Tac-Toe!");
+        initializeGameBoard();
         // Running the game
         while (gameState == true) {
         
@@ -82,23 +102,5 @@ public class TicTacToe extends GameBoard {
             displayGameBoard(coordinates);
 
         }
-    }
-
-    public char[] placeGamePiece(int coordinate, char[] placementRow) {
-
-        switch (coordinate) {
-            case 1:
-                placementRow[1] = 'X';
-                break;
-            case 2:
-                placementRow[8] = 'X';
-                break;
-            
-            case 3:
-            placementRow[15] = 'X';
-            break;
-        }
-
-        return placementRow;
     }
 }
