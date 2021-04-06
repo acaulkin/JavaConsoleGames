@@ -85,7 +85,20 @@ public class TicTacToe extends GameBoard {
     }
 
     public char[] placeGamePiece(int coordinate, char[] placementRow) {
-        placementRow[coordinate] = 'X';
+
+        switch (coordinate) {
+            case 1:
+                placementRow[1] = 'X';
+                break;
+            case 2:
+                placementRow[8] = 'X';
+                break;
+            
+            case 3:
+            placementRow[15] = 'X';
+            break;
+        }
+
         return placementRow;
     }
 }
