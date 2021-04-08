@@ -177,7 +177,6 @@ public class TicTacToe extends GameBoard {
             }
         }
 
-
         // checking diaganols
         char leftDiagCheck = leftDiag[0];
         Boolean leftDiagWin = true;
