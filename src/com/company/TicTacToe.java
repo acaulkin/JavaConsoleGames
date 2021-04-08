@@ -149,6 +149,14 @@ public class TicTacToe extends GameBoard {
                 break;
         }
 
+        return checkForGameWin(placementRow, placementColumn);
+    }
+
+    public char[] checkForGameWin(char[] placementRow, char[] placementColumn) {
+        // initializing the left and right diaganols
+        char leftDiag[] = {firstRow[1], secondRow[8], thirdRow[15]};
+        char rightDiag[] = {firstRow[15], secondRow[8], thirdRow[1]};
+
         // checking row
         char rowCheck = placementRow[1];
         Boolean rowWin = true;
@@ -169,10 +177,35 @@ public class TicTacToe extends GameBoard {
             }
         }
 
-        // TODO:
-        // implement diaganol check for equivalency
+        // checking diaganols
+        char leftDiagCheck = leftDiag[0];
+        Boolean leftDiagWin = true;
+        for (int index = 0; index < leftDiag.length; index++) {
+            if (leftDiag[index] == ' ') {
+                leftDiagWin = false;
+                break;
+            }
+            if (leftDiag[index] != leftDiagCheck) {
+                leftDiagWin = false;
+                break;
+            }
+        }
+        char rightDiagCheck = rightDiag[0];
+        Boolean rightDiagWin = true;
+        for (int index = 0; index < rightDiag.length; index++) {
+            if (rightDiag[index] == ' ') {
+                rightDiagWin = false;
+                break;
+            }
+            if (rightDiag[index] != rightDiagCheck) {
+                rightDiagWin = false;
+                break;
+            }
+        }
 
-        if (rowWin == true || columnWin == true) { 
+        // checking if there are any win conditions, if there are, set the game's
+        // state to false to end the game.
+        if (rowWin == true || columnWin == true || leftDiagWin == true || rightDiagWin == true ) {
             gameState = false;
             return placementRow;
         }
