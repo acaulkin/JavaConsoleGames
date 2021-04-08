@@ -169,10 +169,35 @@ public class TicTacToe extends GameBoard {
             }
         }
 
-        // TODO:
-        // implement diaganol check for equivalency
+        char leftDiag[] = {firstRow[1], secondRow[8], thirdRow[15]};
+        char rightDiag[] = {firstRow[15], secondRow[8], thirdRow[1]};
 
-        if (rowWin == true || columnWin == true) { 
+        char leftDiagCheck = leftDiag[0];
+        Boolean leftDiagWin = true;
+        for (int index = 0; index < leftDiag.length; index++) {
+            if (leftDiag[index] == ' ') {
+                leftDiagWin = false;
+                break;
+            }
+            if (leftDiag[index] != leftDiagCheck) {
+                leftDiagWin = false;
+                break;
+            }
+        }
+        char rightDiagCheck = rightDiag[0];
+        Boolean rightDiagWin = true;
+        for (int index = 0; index < rightDiag.length; index++) {
+            if (rightDiag[index] == ' ') {
+                rightDiagWin = false;
+                break;
+            }
+            if (rightDiag[index] != rightDiagCheck) {
+                rightDiagWin = false;
+                break;
+            }
+        }
+
+        if (rowWin == true || columnWin == true || leftDiagWin == true || rightDiagWin == true ) {
             gameState = false;
             return placementRow;
         }
