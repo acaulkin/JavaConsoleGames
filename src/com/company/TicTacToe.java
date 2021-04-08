@@ -13,20 +13,26 @@ public class TicTacToe extends GameBoard {
     char secondRow[] = new char[17];
     char thirdRow[] = new char[17];
 
+    Boolean gameState;
+
+    char currentPlayerSymbol;
+
     @Override
     public void playGame() {
         int[] coordinates;
         coordinates = null;
         Scanner scanner = Main.scanner;
 
-        Boolean gameState = true;
+        gameState = true;
         System.out.println("Welcome to Tic-Tac-Toe!");
         initializeGameBoard();
+        displayGameBoard(coordinates);
+
         // Running the game
+        currentPlayerSymbol = 'X';
         while (gameState == true) {
         
             // turn start
-            displayGameBoard(coordinates);
             System.out.println("Enter the coordinates: ");
             
             // reading input from user
@@ -38,8 +44,18 @@ public class TicTacToe extends GameBoard {
             for (int index = 0; index < coordinates.length; index++) {
                 coordinates[index] = Integer.parseInt(movePlacementArray[index]);
             }
+
             displayGameBoard(coordinates);
+
+            if (currentPlayerSymbol == 'X') {
+                currentPlayerSymbol = 'O';  
+            }
+            else {
+                currentPlayerSymbol = 'X';
+            }
         }
+
+        System.out.println("Game Win!!!");
     }
 
     @Override
@@ -109,23 +125,59 @@ public class TicTacToe extends GameBoard {
         and placement row.
     */
 
-        // TODO: Have below take a character that is defined as either 'X' or as
-        // 'O'.
-        
         // checking which column we want to edit, and replacing that value with 
         // a current temp value of 'X'. 
+        char[] placementColumn = new char[3];
         switch (coordinate) {
             case 1:
-                placementRow[1] = 'X';
+                placementRow[1] = currentPlayerSymbol;
+                placementColumn[0] = firstRow[1];
+                placementColumn[1] = secondRow[1];
+                placementColumn[2] = thirdRow[1];
                 break;
             case 2:
-                placementRow[8] = 'X';
+                placementRow[8] = currentPlayerSymbol;
+                placementColumn[0] = firstRow[8];
+                placementColumn[1] = secondRow[8];
+                placementColumn[2] = thirdRow[8];
                 break;
             case 3:
-                placementRow[15] = 'X';
+                placementRow[15] = currentPlayerSymbol;
+                placementColumn[0] = firstRow[15];
+                placementColumn[1] = secondRow[15];
+                placementColumn[2] = thirdRow[15];
                 break;
         }
-    
-        return placementRow;
+
+        // checking row
+        char rowCheck = placementRow[1];
+        Boolean rowWin = true;
+        for (int index = 1; index < placementRow.length; index = index + 7) {
+            if (placementRow[index] != rowCheck) {
+                rowWin = false;
+                break;
+            }
+        }
+
+        // checking column
+        char columnCheck = placementColumn[0];
+        Boolean columnWin = true;
+        for (int index = 0; index < placementColumn.length; index++) {
+            if (placementColumn[index] != columnCheck) {
+                columnWin = false;
+                break;
+            }
+        }
+
+        // TODO:
+        // implement diaganol check for equivalency
+
+        if (rowWin == true || columnWin == true) { 
+            gameState = false;
+            return placementRow;
+        }
+        else {
+            return placementRow;
+        }
     }
 }
